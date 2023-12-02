@@ -1,0 +1,22 @@
+---
+name: Test Stress
+author: David Kopp
+description: test
+
+services:
+  test-container:
+    type: container
+    image: gcb_stress
+    build: .
+    environment:
+      TEST_GET_HOST_ENV_VAR: '$(pwd)'
+      # TEST_GET_HOST_ENV_VAR_IN_ANOTHER_CONTAINER: 'dummy hello-world && docker run -it -e HOST_PWD="$(pwd)" alpine /bin/sh -c "printenv HOST_PWD" # '
+      # TEST_GET_HOST_ENV_VARS_IN_ANOTHER_CONTAINER: 'dummy hello-world && docker run -it -e HOST_ENV_VARS="$(env)" alpine /bin/sh -c "printenv HOST_ENV_VARS" # '
+
+flow:
+  - name: Stress
+    container: test-container
+    commands:
+      - type: console
+        command: stress-ng -c 1 -t 1 -q
+        note: Starting Stress

@@ -1,0 +1,40 @@
+---
+name: Test Stress
+author: David Kopp
+description: test
+
+services:
+  test-container:
+    type: container
+    image: gcb_stress
+    build: .
+    environment:
+      TEST_DOLLAR: '$PWD'
+      TEST_DOLLAR2: '${PWD}'
+      TEST_DOLLAR3: '$$PWD'
+      TEST_DOLLAR4: '\$\$PWD'
+      TEST_HASH: '# VALUE'
+      TEST_HASH2: '#VALUE'
+      TEST_SPACE: ' VALUE '
+      TEST_ASTERISK: '*'
+      TEST_QUESTION_MARK: '?'
+      TEST_VERTICAL_BAR: '|'
+      TEST_SEMICOLON: ';'
+      TEST_ANGLE_QUOTATION_LEFT: '<'
+      TEST_ANGLE_QUOTATION_RIGHT: '>'
+      TEST_BACKTICK: '`'
+      TEST_EXCLAMATION_MARK: '!'
+      TEST_CURLY_BRACKET_LEFT: '{'
+      TEST_CURLY_BRACKET_RIGHT: '}'
+      TEST_SQUARE_BRACKET_LEFT: '['
+      TEST_SQUARE_BRACKET_RIGHT: ']'
+      TEST_PARENTHESIS_LEFT: '('
+      TEST_PARENTHESIS_RIGHT: ')'
+
+flow:
+  - name: Stress
+    container: test-container
+    commands:
+      - type: console
+        command: stress-ng -c 1 -t 1 -q
+        note: Starting Stress
