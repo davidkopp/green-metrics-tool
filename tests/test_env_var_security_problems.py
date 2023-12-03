@@ -116,4 +116,4 @@ def test_env_variable_security_special_chars(capsys):
     assert '$PWD' in env_var_output, Tests.assertion_info('$PWD in env var output', env_var_output)
     assert '${PWD}' in env_var_output, Tests.assertion_info('${PWD} in env var output', env_var_output)
     assert '$$PWD' in env_var_output, Tests.assertion_info('$$PWD in env var output', env_var_output)
-    assert '\$\$PWD' in env_var_output, Tests.assertion_info('\$\$PWD in env var output', env_var_output)
+    assert r'\$\$PWD' in env_var_output, Tests.assertion_info(r'\$\$PWD in env var output', env_var_output)
